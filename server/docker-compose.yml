@@ -22,7 +22,7 @@ logstash:
   command: -f /etc/logstash.conf
 
 kibana:
-  image: ehazlett/kibana
+  image: kibana:latest
   links:
     - elasticsearch
   ports:
