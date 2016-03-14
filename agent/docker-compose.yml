@@ -7,10 +7,14 @@ logspout:
   command: syslog://logstash:5000
 
 logstash:
-  image: ehazlett/logstash
+  image: logstash:latest
   volumes:
-    - "./logstash.conf:/etc/logstash.conf"
+    - "./logstash.conf:/tmp/logstash.conf"
   ports:
     - "5000:5000"
     - "5000:5000/udp"
-  command: -f /etc/logstash.conf
+  environment:
+    - LOGGER_SERVER=192.168.99.101
+  command: -f /tmp/logstash.conf
+  #sed -e "s/LOGGER_SERVER/$LOGGER_SERVER/"
+  #m4 -DLOGGER_SERVER="$LOGGER_SERVER" <
