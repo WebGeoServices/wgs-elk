@@ -1,8 +1,11 @@
 elasticsearch:
-  image: ehazlett/elasticsearch
+  image: elasticsearch:latest
   ports:
     - "9200:9200"
     - "9300:9300"
+  volumes:
+    - "./elasticsearch.yml:/opt/elasticsearch/config/elasticsearch.yml"
+  command: elasticsearch -Des.network.host=0.0.0.0
 
 redis:
   image: redis:3.0.0
@@ -10,7 +13,7 @@ redis:
     - "6379:6379"
 
 logstash:
-  image: ehazlett/logstash
+  image: logstash:latest
   ports:
     - "5000:5000"
     - "5000:5000/udp"
@@ -27,3 +30,4 @@ kibana:
     - elasticsearch
   ports:
     - "80:80"
+    - "5601:5601"
